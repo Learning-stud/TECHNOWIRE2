@@ -160,6 +160,66 @@
 
 
 
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from bs4 import BeautifulSoup
+# import time
+
+# # Initialize WebDriver
+# driver = webdriver.Chrome()
+
+# # Define the URL
+# url = "https://www.icra.in/Rating/RatingCategory?RatingType=CR&RatingCategoryId=5"
+# driver.get(url)
+
+# # Function to extract data from the current page
+# def extract_data():
+#     soup = BeautifulSoup(driver.page_source, 'html.parser')
+#     table = soup.find('table', {'id': 'entity_data_table'})
+#     rows = table.find_all('tr')
+#     data = []
+#     for row in rows:
+#         cells = row.find_all('td')
+#         data.append([cell.text.strip() for cell in cells])
+#     return data
+
+# # List to store all data
+# all_data = []
+
+# # Function to click the next button
+# def click_next_button():
+#     retries = 5  # Number of retry attempts
+#     for _ in range(retries):
+#         try:
+#             next_button = WebDriverWait(driver, 20).until(
+#                 EC.element_to_be_clickable((By.XPATH, '//*[@id="contentPager"]/div/ul/li[5]/a'))
+#             )
+#             driver.execute_script("arguments[0].scrollIntoView(true);", next_button)
+#             time.sleep(2)
+#             driver.execute_script("arguments[0].click();", next_button)
+#             time.sleep(5)
+#             return True
+#         except Exception as e:
+#             print(f"Retrying to click next button: {e}")
+#             time.sleep(2)
+#     return False
+
+# # Loop through pages and extract data
+# for page in range(1, 11):  # Adjust the range according to the total number of pages
+#     print(f"Scraping page {page}")
+#     all_data.extend(extract_data())
+#     if not click_next_button():
+#         print(f"Failed to navigate to the next page after multiple attempts.")
+#         break
+
+# # Close the WebDriver
+# driver.quit()
+
+# # Print the data
+# for row in all_data:
+#     print(row)
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -189,27 +249,36 @@ def extract_data():
 # List to store all data
 all_data = []
 
-# Loop through pages and extract data
+# Function to click the next button
+def click_next_button():
+    retries = 5  # Number of retry attempts
+    for _ in range(retries):
+        try:
+            next_button = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="contentPager"]/div/ul/li[6]/a'))
+            )
+            driver.execute_script("arguments[0].scrollIntoView(true);", next_button)
+            time.sleep(2)
+            driver.execute_script("arguments[0].click();", next_button)
+            time.sleep(5)
+            return True
+        except Exception as e:
+            print(f"Retrying to click next button: {e}")
+            time.sleep(2)
+    return False
 
- # Loop through pages and extract data
+# Loop through pages and extract data
 for page in range(1, 11):  # Adjust the range according to the total number of pages
     print(f"Scraping page {page}")
-    all_data.extend(extract_data())
-    try:
-        # Find and click the 'Next' button using the correct XPath
-        next_button = WebDriverWait(driver, 50).until(
-            EC.element_to_be_clickable((By.XPATH, '//*[@id="contentPager"]/div/ul/li[6]/a'))
-        )
-        # Scroll to the next button
-        driver.execute_script("arguments[0].scrollIntoView();", next_button)
-        print("Next button found, clicking...")
-        next_button.click()
-        time.sleep(50)  # Adjust sleep time if necessary
-    except Exception as e:
-        print(f"Failed to navigate to the next page: {e}")
+    page_data = extract_data()
+
+    # Ensure we only add unique data
+    if page_data not in all_data:
+        all_data.extend(page_data)
+
+    if not click_next_button():
+        print(f"Failed to navigate to the next page after multiple attempts.")
         break
-
-
 
 # Close the WebDriver
 driver.quit()
