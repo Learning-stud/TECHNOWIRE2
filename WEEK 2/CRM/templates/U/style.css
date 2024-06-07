@@ -1,0 +1,47 @@
+/* Apply styles to elements with assigned IDs */
+
+#file-input {
+    margin-bottom: 10px;
+}
+
+#upload-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#upload-button:hover {
+    background-color: #0056b3;
+}
+
+#header-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#new-header-form {
+    margin-top: 20px;
+}
+
+#new-header-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+
+#create-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#create-button:hover {
+    background-color: #45a049;
+}
