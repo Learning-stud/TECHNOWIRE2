@@ -15,7 +15,7 @@ driver.get(url)
 # Function to extract data from the current page
 def extract_data():
     soup = BeautifulSoup(driver.page_source, 'html.parser')
-    table = soup.find('table', {'class': 'entity_data_table'})
+    table = soup.find('table', {'id': 'entity_data_table'})
     rows = table.find_all('tr')
     data = []
     for row in rows:
@@ -27,16 +27,16 @@ def extract_data():
 all_data = []
 
 # Loop through pages and extract data
-for page in range(1, 1001):  # Adjust the range according to the total number of pages
+for page in range(1, 5):  # Adjust the range according to the total number of pages
     print(f"Scraping page {page}")
     all_data.extend(extract_data())
     try:
-        # Find and click the 'Next' button
+        # Find and click the 'Next' button using XPath or a more reliable selector
         next_button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.LINK_TEXT, 'Next'))
+            EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "Next")]'))
         )
         next_button.click()
-        time.sleep(2)  # Adjust sleep time if necessary
+        time.sleep(20)  # Adjust sleep time if necessary
     except Exception as e:
         print(f"Failed to navigate to the next page: {e}")
         break
@@ -48,4 +48,5 @@ driver.quit()
 for row in all_data:
     print(row)
 
-# You can also save the data to a file or database if needed
+
+
