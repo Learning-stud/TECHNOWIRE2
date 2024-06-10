@@ -44,7 +44,7 @@ def scrape_page_data():
 scrape_page_data()
 
 # Set the page limit
-page_limit = 100
+page_limit = 150
 current_page = 1
 
 # Find and click the "Next" button to navigate to the next page
