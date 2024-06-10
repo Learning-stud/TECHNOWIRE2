@@ -1,4 +1,4 @@
-# WORKING PERFECT 
+# WORKING PERFECT
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -44,7 +44,7 @@ def scrape_page_data():
 scrape_page_data()
 
 # Set the page limit
-page_limit = 10
+page_limit = 100
 current_page = 1
 
 # Find and click the "Next" button to navigate to the next page
@@ -60,7 +60,7 @@ while current_page < page_limit:
 
         # Scroll the next button into view
         driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", next_button)
-        time.sleep(2)
+        time.sleep(5)
 
         # Use JavaScript to click the button
         driver.execute_script("arguments[0].click();", next_button)
