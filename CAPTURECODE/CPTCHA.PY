@@ -475,66 +475,25 @@
 #         finally:
 # #             driver.quit()
 # import requests
-# from bs4 import BeautifulSoup
-# from PIL import Image
-# import pytesseract
-# from io import BytesIO
+import requests
+from PIL import Image
+import pytesseract
+from io import BytesIO
 
-# # Define the path to the Tesseract executable
-# pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+# URL of the CAPTCHA image
+captcha_url = 'https://example.com/captcha.png'  # Replace with the actual CAPTCHA image URL
 
-# # URL of the website
-# url = 'https://gem.gov.in/view_contracts'
+# Download the CAPTCHA image
+response = requests.get(captcha_url)
+if response.status_code == 200:
+    captcha_image = Image.open(BytesIO(response.content))
 
-# # Create a session to persist the cookies
-# session = requests.Session()
+    # Save the image locally if needed
+    captcha_image.save('captcha.png')
 
-# # Send a GET request to the page
-# response = session.get(url)
+    # Use Tesseract to extract text from the image
+    captcha_text = pytesseract.image_to_string(captcha_image)
 
-# # Check if the request was successful
-# if response.status_code == 200:
-#     # Parse the HTML content
-#     soup = BeautifulSoup(response.content, 'html.parser')
-
-#     # Find the CAPTCHA image by ID
-#     captcha_img_tag = soup.find(id='captchaimg1')
-
-#     if captcha_img_tag:
-#         captcha_img_url = captcha_img_tag['src']
-#         if not captcha_img_url.startswith('http'):
-#             captcha_img_url = 'https://gem.gov.in' + captcha_img_url
-
-#         # Print the URL to confirm it's correct
-#         print("CAPTCHA image URL:", captcha_img_url)
-
-#         # Download the CAPTCHA image
-#         captcha_response = session.get(captcha_img_url)
-
-#         # Check the content type of the response
-#         content_type = captcha_response.headers.get('Content-Type')
-#         print("Content Type:", content_type)
-
-#         # Print the first few bytes of the content for inspection
-#         print("Content Preview:", captcha_response.content[:100])
-
-#         if 'image' in content_type:
-#             try:
-#                 # Open the image
-#                 img = Image.open(BytesIO(captcha_response.content))
-
-#                 # Optionally, preprocess the image
-#                 img = img.convert('L')  # Convert to grayscale
-
-#                 # Apply OCR to the image
-#                 captcha_text = pytesseract.image_to_string(img)
-
-#                 print("CAPTCHA text:", captcha_text)
-#             except Exception as e:
-#                 print("Error processing the image:", e)
-#         else:
-#             print("The content retrieved is not an image.")
-#     else:
-#         print("CAPTCHA image not found")
-# else:
-#     print("Failed to load the page")
+    print("Extracted CAPTCHA text:", captcha_text)
+else:
+    print("Failed to download CAPTCHA image")
