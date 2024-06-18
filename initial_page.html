@@ -81,9 +81,9 @@
 		      position: relative;
      left: 0;
     right: 0;
-       
+
 	  }
-	  
+
 	  .gem-border{
 		  /* background: url(resources/images/gem-outlet.png); */
 		background-repeat: no-repeat;
@@ -100,9 +100,9 @@
 		  border: 1px solid #ff5722;
 		  box-shadow: 0 1px 14px -4px #7cbef2;
 		  background:none;
-	  } 
 	  }
-	  
+	  }
+
          .searchwrp{z-index: 9!important;}
          .gsl li h4 {
          height: 4em;
@@ -170,7 +170,7 @@
          z-index: 999;
          }
 		 @media (max-width: 680px){
-			.akam{display:none;} 
+			.akam{display:none;}
 		 }
 		 .forward-act {
     padding: 0.6em 0.4em !important;
@@ -224,10 +224,10 @@
    overflow-wrap: break-word;
    white-space: initial;
    float:left;
-   
+
 }
 
-		
+
 
 
         #nav_signup li {
@@ -1229,7 +1229,7 @@
          </li>
          <!-- <li>
                               <a href="https://mkp.gem.gov.in/services">Services</a>
-                              
+
 
                            </li>-->
          <li class="cat_menu-li">
@@ -2244,7 +2244,7 @@
                 $('#pageno').val(page + 1);
                 $('#load_more').addClass('div_load_more');
                 //$('#pagi_content').show();
-                
+
                 $('#pagi_content').append(data);
                 if ($('.ajxtag_order_number').length < 20) {
                     $('#load_more').hide();
@@ -2605,7 +2605,7 @@
                 var s = JSON.parse(data);
                 $("#captchaimg1").attr('src', 'data:image/jpeg;charset=utf8;base64,' + s.im);
                 $('#h_captcha1').val(s.text);
-                
+
                 $("#captchaimg2").attr('src', 'data:image/jpeg;charset=utf8;base64,' + s.im);
                 $('#h_captcha2').val(s.text);
             }
@@ -2616,7 +2616,7 @@
         console.log(no);
         if ($(`#captcha_code${no}`).val() != "") {
             if($(`#h_captcha${no}`).val() != $(`#captcha_code${no}`).val()){
-                $(`#pcaptcha_code${no}`).text("Please enter correct Confirmation Code."); 
+                $(`#pcaptcha_code${no}`).text("Please enter correct Confirmation Code.");
                 return false;
             }else{
                 // $(`#h_captcha${no}`).val("")
@@ -3376,7 +3376,7 @@
         //       document.getElementById('smsg').innerHTML = '';
         //   }, 2000);
         //$("#topic_form").on("submit", function(e){
-        //    
+        //
         //});
     });
     </script>
@@ -3391,7 +3391,7 @@
             $('.last-style2').on('focusout', function(e) {
                 $(this).parent().parent().removeClass('open');
             })
-            //$('.on-focus').removeClass('hover'); 
+            //$('.on-focus').removeClass('hover');
         });
 
     });
@@ -3457,7 +3457,7 @@
 //        $('#pdflinkUrl').prop('href', pdfLink);
 //        $('#video-seller').modal('show');
 //    });
-    // Video Auto Close after Popup close. 
+    // Video Auto Close after Popup close.
     $('.vclose').on('click', function(e) {
         $('#video-seller').find('.player').html('<iframe class="xy_i" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
     });
@@ -3708,7 +3708,7 @@
     <script>
      $(document).ready(function() {
 
-        
+
 
             setTimeout(loadGeMmy, 5000);
 
