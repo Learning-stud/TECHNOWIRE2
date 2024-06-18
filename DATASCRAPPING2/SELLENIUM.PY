@@ -27,18 +27,7 @@ def extract_data():
     print(f"Extracted {len(data)} rows of data")
     return data
 
-        # """
-        # Extracts data from a web page using Selenium and BeautifulSoup.
 
-        # This function waits for the 'entity_data_table' element to be present on the page, then extracts the data from the table.
-        # It finds the table element by its ID, then iterates over each row in the table and extracts the text from each cell.
-        # The extracted data is stored in a list of lists, where each inner list represents a row of data.
-        # The function prints each row of data as it is extracted and also prints the total number of rows extracted.
-        # Finally, the function returns the extracted data as a list of lists.
-
-        # Returns:
-        #     list: A list of lists, where each inner list represents a row of data.
-        # """
 all_data = []
 def scrape_page_data():
     print("Scraping page data...")
@@ -50,24 +39,7 @@ def scrape_page_data():
             all_data.append(data_row)
 scrape_page_data()
 
-
-
-'''
-    Scrapes page data by extracting data from a web page using Selenium and BeautifulSoup.
-    This function waits for the 'entity_data_table' element to be present on the page, then extracts the data from the table.
-    It finds the table element by its ID, then iterates over each row in the table and extracts the text from each cell.
-    The extracted data is stored in a list of lists, where each inner list represents a row of data.
-    The function prints each row of data as it is extracted and also prints the total number of rows extracted.
-    Finally, the function appends each row of data to the 'all_data' list if it is not already present in the list and not an empty list.
-    This function does not return anything.
-
-    Parameters:
-        None
-
-    Returns:
-        None
-'''
-page_limit = 100
+page_limit = 10
 current_page = 1
 
 while current_page < page_limit:
@@ -88,7 +60,7 @@ while current_page < page_limit:
         break
 driver.quit()
 for row in all_data:
-#     print(row)
+     print(row)
 
 # Function to fetch data from the API
 # # # import concurrent.futures
