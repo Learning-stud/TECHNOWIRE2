@@ -8,75 +8,48 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import time
 
-# Function to log in to LinkedIn
-def linkedin_login(driver, email, password):
-    # Open LinkedIn login page
+
+def linkedin(driver, email, password):
     driver.get('https://www.linkedin.com/login')
-
-    # Find the email input field by class name and enter the email
-    email_element = driver.find_element(By.CLASS_NAME, 'username')
-    email_element.send_keys(email)
-
-    # Find the password input field by class name and enter the password
-    password_element = driver.find_element(By.CLASS_NAME, 'password')
-    password_element.send_keys(password)
-
-    # Find the login button by class name and click it to log in
-    login_button = driver.find_element(By.CLASS_NAME, 'submit-button')
-    login_button.click()
-
-# Function to extract PDF links from the current page
-def extract_pdf_links(driver):
-    pdf_links = []
-    # Find all <a> tags on the page
+    email = driver.find_element(By.CLASS_NAME, 'username')
+    email.send_keys(email)
+    password = driver.find_element(By.CLASS_NAME, 'password')
+    password.send_keys(password)
+    login = driver.find_element(By.CLASS_NAME, 'submit-button')
+    login.click()
+def extractPdf(driver):
+    pdfLink = []
     a_tags = driver.find_elements(By.TAG_NAME, 'a')
-    # Loop through each <a> tag to check for PDF links
+
     for a_tag in a_tags:
-        href = a_tag.get_attribute('href')  # Get the href attribute of the <a> tag
-        if href and href.endswith('.pdf'):  # Check if the href ends with .pdf
-            pdf_links.append(href)  # Add the PDF link to the list
-    return pdf_links
+        href = a_tag.get_attribute('href')
+        if href and href.endswith('.pdf'):
+            pdfLink.append(href)
+    return pdfLink
 
-
-
-# Initialize WebDriver (Chrome in this case)
-service = Service('selenium_scrapping/chromedriver.exe')  # Path to the chromedriver executable
-driver = webdriver.Chrome(service=service)  # Create a new Chrome session
-
-# LinkedIn login credentials
-email = 'jayahalpara123456@gmail.com'
-password = 'jaygajjar@123'
+service = Service('selenium_scrapping/chromedriver.exe')
+driver = webdriver.Chrome(service=service)
+user_email = 'jayahalpara123456@gmail.com'
+user_password = 'jaygajjar@123'
 
 try:
-    # Log in to LinkedIn
-    linkedin_login(driver, email, password)
 
-    # Navigate to the LinkedIn profile page
-    profile_url = 'https://www.linkedin.com/in/dr-vaishali-dixit-803156264/recent-activity/all/'  # URL of the LinkedIn profile
-    driver.get(profile_url)
-
-    # Wait until the page loads by checking the presence of the body tag
-    wait = WebDriverWait(driver, 10)  # Maximum wait time of 10 seconds
+    linkedin(driver, user_email, user_password)
+    profile = 'https://www.linkedin.com/in/dr-vaishali-dixit-803156264/recent-activity/all/'
+    driver.get(profile)
+    wait = WebDriverWait(driver, 10)
     wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 
-    # Click "Show More" buttons if available
     while True:
         try:
-            # Wait until the "Show More" button is clickable and click it
-            show_more_button = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'ssplayer-virus-scan-container__download-button')))
-            show_more_button.click()
-            time.sleep(2)  # Wait for the content to load after clicking
+            showMore = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'ssplayer-virus-scan-container__download-button')))
+            showMore.click()
+            time.sleep(2)
         except (NoSuchElementException, TimeoutException):
-            # Exit the loop if there are no more "Show More" buttons
             break
+    pdfLink = extractPdf(driver)
 
-    # Extract PDF links from the profile page
-    pdf_links = extract_pdf_links(driver)
-
-    # Print the extracted PDF links
-    for pdf_link in pdf_links:
+    for pdf_link in pdfLink:
         print(pdf_link)
-
 finally:
-    # Close the WebDriver session
     driver.quit()
