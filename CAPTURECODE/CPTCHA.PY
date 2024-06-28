@@ -56,16 +56,16 @@ async def main():
 
         # Handle CAPTCHA
         captcha_element = await page.waitForSelector('#frm > div > div:nth-child(5) > div:nth-child(1) > div:nth-child(3) > div > img', timeout=10000)
-        captcha_src = await page.evaluate('(captcha_element) => captcha_element.src', captcha_element)
+        captcha = await page.evaluate('(captcha_element) => captcha_element.src', captcha_element)
         print("Captcha image source retrieved.")
 
-        captcha_response = await page.goto(captcha_src)
-        captcha_image = Image.open(io.BytesIO(await captcha_response.buffer()))
-        captcha_text = pytesseract.image_to_string(captcha_image).strip()
-        print("Captcha text extracted:", captcha_text)
+        response = await page.goto(captcha)
+        image = Image.open(io.BytesIO(await response.buffer()))
+        text_captcha = pytesseract.image_to_string(image).strip()
+        print("Captcha text extracted:", text_captcha)
 
         # Input CAPTCHA
-        await page.type('#captcha_code2', captcha_text)
+        await page.type('#captcha_code2', text_captcha)
         print("Captcha text inputted.")
 
         # Click the search button
