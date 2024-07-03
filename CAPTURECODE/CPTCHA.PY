@@ -26,7 +26,6 @@ async def main():
                 if attempt == retries - 1:
                     raise
                 await asyncio.sleep(2)
-
         print("Navigated to the website.")
 
         # Check the current URL to confirm navigation
@@ -41,7 +40,7 @@ async def main():
 
         # Wait for the specific tab to be available and click it
         await page.waitForSelector('#myTab > li:nth-child(2) > a', timeout=10000)
-        await page.click('#myTab > li:nth-child(2) > a') 
+        await page.click('#myTab > li:nth-child(2) > a')
         print("Clicked on the second tab.")
 
         # Wait for the form to load
