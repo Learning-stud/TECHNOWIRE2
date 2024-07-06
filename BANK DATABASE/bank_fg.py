@@ -9,7 +9,7 @@
 # from bs4 import BeautifulSoup
 
 # # Function to connect to MySQL database
-# def connect_to_mysql():
+# def mysql_connection():
 #     try:
 #         conn = mysql.connector.connect(
 #             host='localhost',
@@ -42,7 +42,7 @@
 # table = soup.find('table', class_='table table-hover table-light')
 
 # # Connect to MySQL database
-# conn = connect_to_mysql()
+# conn = mysql_connection()
 # if not conn:
 #     driver.quit()
 #     exit()
@@ -88,7 +88,7 @@
 
 # # Fetch data from MySQL (optional step)
 # def fetch_data_from_mysql():
-#     conn = connect_to_mysql()
+#     conn = mysql_connection()
 #     if not conn:
 #         return
 #     cursor = conn.cursor()
@@ -122,7 +122,7 @@
 # from bs4 import BeautifulSoup
 
 # # Function to connect to MySQL database
-# def connect_to_mysql():
+# def mysql_connection():
 #     try:
 #         conn = mysql.connector.connect(
 #             host='localhost',
@@ -169,7 +169,7 @@
 #     table = soup.find('table', class_='table table-hover table-light')
 
 #     # Connect to MySQL database
-#     conn = connect_to_mysql()
+#     conn = mysql_connection()
 #     if not conn:
 #         driver.quit()
 #         exit()
@@ -219,7 +219,7 @@
 
 # # Function to fetch data from MySQL
 # def fetch_data_from_mysql():
-#     conn = connect_to_mysql()
+#     conn = mysql_connection()
 #     if not conn:
 #         return
 #     cursor = conn.cursor()
@@ -252,7 +252,7 @@ import mysql.connector
 from bs4 import BeautifulSoup
 
 # Function to connect to MySQL database
-def connect_to_mysql():
+def mysql_connection():
     try:
         conn = mysql.connector.connect(
             host='localhost',
@@ -298,7 +298,7 @@ try:
     table = soup.find('table', class_='table table-hover table-light')
 
     # Connect to MySQL database
-    conn = connect_to_mysql()
+    conn = mysql_connection()
     if not conn:
         driver.quit()
         exit()
@@ -367,7 +367,7 @@ finally:
 
 # Function to fetch and print data from MySQL
 def fetch_data_from_mysql():
-    conn = connect_to_mysql()
+    conn = mysql_connection()
     if not conn:
         return
 
