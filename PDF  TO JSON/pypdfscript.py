@@ -1,59 +1,59 @@
-import json
-from PyPDF2 import PdfReader
-import re
+# import json
+# from PyPDF2 import PdfReader
+# import re
 
-def text_to_pdf(pdf_path):
-    pdf_text = []
-    reader = PdfReader(pdf_path)
-    for page in reader.pages:
-        pdf_text.append(page.extract_text())
-    return pdf_text
+# def text_to_pdf(pdf_path):
+#     pdf_text = []
+#     reader = PdfReader(pdf_path)
+#     for page in reader.pages:
+#         pdf_text.append(page.extract_text())
+#     return pdf_text
 
-def adding_financial(lines):
-    financial_data = {}
-    current_section = None
+# def adding_financial(lines):
+#     financial_data = {}
+#     current_section = None
 
-    for line in lines:
-        if re.match(r'^[A-Z\s&]+$', line):  # Detect section headers
-            current_section = line.strip().lower().replace(" ", "_").replace(".", "_").replace(":", "_")
-            financial_data[current_section] = {}
-        elif current_section:
-            match = re.match(r'^(.*?):\s*([\d,\.]+)$', line)
-            if match:
-                key, value = match.groups()
-                financial_data[current_section][key.strip()] = value.strip()
-            else:
-                parts = line.split()
-                if len(parts) > 1 and re.match(r'^[\d,\.]+$', parts[-1]):
-                    key = " ".join(parts[:-1])
-                    value = parts[-1]
-                    financial_data[current_section][key.strip()] = value.strip()
-                else:
-                    financial_data[current_section][line.strip()] = ""
+#     for line in lines:
+#         if re.match(r'^[A-Z\s&]+$', line):  # Detect section headers
+#             current_section = line.strip().lower().replace(" ", "_").replace(".", "_").replace(":", "_")
+#             financial_data[current_section] = {}
+#         elif current_section:
+#             match = re.match(r'^(.*?):\s*([\d,\.]+)$', line)
+#             if match:
+#                 key, value = match.groups()
+#                 financial_data[current_section][key.strip()] = value.strip()
+#             else:
+#                 parts = line.split()
+#                 if len(parts) > 1 and re.match(r'^[\d,\.]+$', parts[-1]):
+#                     key = " ".join(parts[:-1])
+#                     value = parts[-1]
+#                     financial_data[current_section][key.strip()] = value.strip()
+#                 else:
+#                     financial_data[current_section][line.strip()] = ""
 
-    return financial_data
+#     return financial_data
 
-def json_structure(pdf_text):
-    data = {}
-    for i, text in enumerate(pdf_text):
-        page_key = f"page_{i + 1}"
-        lines = text.split('\n')
-        page_data = adding_financial(lines)
-        data[page_key] = page_data
-    return data
+# def json_structure(pdf_text):
+#     data = {}
+#     for i, text in enumerate(pdf_text):
+#         page_key = f"page_{i + 1}"
+#         lines = text.split('\n')
+#         page_data = adding_financial(lines)
+#         data[page_key] = page_data
+#     return data
 
-def saved_json(data, outputData):
-    with open(outputData, 'w') as json_file:
-        json.dump(data, json_file, indent=8)
+# def saved_json(data, outputData):
+#     with open(outputData, 'w') as json_file:
+#         json.dump(data, json_file, indent=8)
 
-pdf_path = './Audited Financials - FY 24.pdf'
-outputData = 'data.json'
+# pdf_path = './Audited Financials - FY 24.pdf'
+# outputData = 'data.json'
 
-pdf_text = text_to_pdf(pdf_path)
-data = json_structure(pdf_text)
-saved_json(data, outputData)
+# pdf_text = text_to_pdf(pdf_path)
+# data = json_structure(pdf_text)
+# saved_json(data, outputData)
 
-print("Data has been extracted and saved to JSON file successfully.")
+# print("Data has been extracted and saved to JSON file successfully.")
 import PyPDF2
 import re
 

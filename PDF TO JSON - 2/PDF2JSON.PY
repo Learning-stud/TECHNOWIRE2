@@ -17,7 +17,7 @@ for page_num in range(5, 9):
 
 doc.close()
 
-with open("financial_results.json", "w", encoding="utf-8") as json_file: 
+with open("results.json", "w", encoding="utf-8") as json_file:
     json.dump(data, json_file, ensure_ascii=False, indent=4)
 
 print("Data has been successfully extracted and saved to financial_results.json.")
