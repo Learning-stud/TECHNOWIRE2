@@ -46,8 +46,8 @@ def saved_json(data, outputData):
     with open(outputData, 'w') as json_file:
         json.dump(data, json_file, indent=8)
 
-pdf_path = './pdffile.pdf'
-outputData = 'output.json'
+pdf_path = './Audited Financials - FY 24.pdf'
+outputData = 'data.json'
 
 pdf_text = text_to_pdf(pdf_path)
 data = json_structure(pdf_text)
@@ -98,17 +98,14 @@ def extract_data_by_headings(text, headings):
     return data
 
 # Path to the PDF file
-pdf_path = "./pdffile.pdf"
+pdf_path = "./Audited Financials - FY 24.pdf"
 
 # Extract all text from the PDF
 full_text = extract_all_text_from_pdf(pdf_path)
 
 # Provided headings
 headings = [
-    "Shareholders' Funds", "Current Liabilities", "Fixed Assets", "Current Assets",
-    "Revenue", "Expenses", "Total Expenses", "Share Capital", "Reserve & Surplus",
-    "Secured Loan", "Unsecured Loan", "Other Current Liabilities", "Sundry Creditors",
-    "Inventory"
+
 ]
 
 # Extract data based on provided headings
