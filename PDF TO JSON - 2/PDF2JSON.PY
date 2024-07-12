@@ -1,14 +1,14 @@
 import fitz
 import json
 
-pdf_file = "./Audited Financials - FY 24.pdf"
+pdf_file = "./2023-EROLLGEN-S06-56-DraftRoll-Revision1-GUJ-1-WI.pdf"
 
 doc = fitz.open(pdf_file)
 
 data = {}
 
-for page_num in range(5, 9):
-    page = doc.load_page(page_num)
+for page_num in range(2, 8):
+    page = doc.load_page(page_num) 
     text = page.get_text()
 
     clean_text = text.replace('\n', ' ')
