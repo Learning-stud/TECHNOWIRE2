@@ -87,38 +87,30 @@ from bs4 import BeautifulSoup
 driver = webdriver.Chrome()
 
 url = "https://www.bcregistry.org.in/iba/home/HomeAction.do?doBCPortal=yes"
-driver.get(url)
+driver.get(url)     
 
 district_values = ['157', '158', '159', '160', '161', '162', '777', '164', '165', '166', '167', '168']
 
 def save_data(district_value):
     try:
-        # Select the state
         state = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="stateId"]')))
-        Select(state).select_by_value('15')  # Himachal Pradesh value
+        Select(state).select_by_value('15')
 
-        # Select the district
         district = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="districtId"]')))
         Select(district).select_by_value(district_value)
 
-        # Click the access button
         access = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="nav-main1"]/ul/div/div/div[3]/div/div/a')))
         driver.execute_script("arguments[0].click();", access)
 
-        # Wait for the captcha to be present
         WebDriverWait(driver, 60).until(EC.visibility_of_element_located((By.CLASS_NAME, 'captcha_text')))
 
-        # Wait for user to input the captcha manually
         input("Please enter the captcha and press Enter to continue...")
 
-        # Wait for the table to be present
         WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CLASS_NAME, 'table')))
 
-        # Parse the page with BeautifulSoup
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         table = soup.find('table', class_='table table-hover table-light')
 
-        # Open a CSV file to write the data
         with open(f'./Himachal_Pradesh--District_{district_value}.csv', mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             writer.writerow(['bc_name', 'mobile_no', 'pincode', 'bank_name'])
@@ -137,14 +129,13 @@ def save_data(district_value):
 
                         print(f"{bc_name}, {mobile_no}, {pincode}, {bank_name}")
 
-            except Exception as e:
-                print(f"Error occurred during data extraction: {str(e)}")
+            except Exception as error:
+                print(f"Error occurred during data extraction: {str(error)}")
 
-    except Exception as e:
-        print(f"Error occurred: {str(e)}")
+    except Exception as error:
+        print(f"Error occurred: {str(error)}")
 
 for district_value in district_values:
     save_data(district_value)
-    time.sleep(20)  # To prevent too fast requests and potential blocking
 
 driver.quit()
