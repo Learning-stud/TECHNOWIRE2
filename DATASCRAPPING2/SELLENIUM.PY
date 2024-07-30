@@ -65,11 +65,11 @@ def scraped(limits, numbers):
     datas = []
     stop = threading.stop()
     threads = []
-    pages = (limits + numbers - 1) // numbers  # Calculate pages per thread ensuring coverage of all pages
+    pages = (limits + numbers - 1) // numbers
 
     for i in range(numbers):
         start = i * pages
-        end = min((i + 1) * pages, limits)  # Ensure we don't exceed the page limit
+        end = min((i + 1) * pages, limits)
         thread = threading.Thread(target=scrape_pages, args=(start, end, datas, stop))
         threads.append(thread)
         thread.start()
@@ -79,12 +79,10 @@ def scraped(limits, numbers):
 
     return datas
 
-#Number of pages to scrape and the number of threads
 limits = 20
 numbers = 10
 datas = scraped(limits, numbers)
 
-# Print the extracted data
 for row in datas:
     print(row)
 
