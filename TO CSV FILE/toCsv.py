@@ -36,8 +36,7 @@ try:
 
     with open('andaman-nicobar-nicobar.csv', mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        # Write the header row
-        writer.writerow(['bc_name', 'mobile_no', 'pincode', 'bank_name'])
+        writer.writerow(['buisnessCorrespond_name', 'mobile_no', 'pincode', 'bank_name'])
 
         try:
             rows = table.find_all('tr')
@@ -45,16 +44,16 @@ try:
             for row in rows:
                 columns = row.find_all('td')
                 if columns:
-                    bc_name = columns[1].text.strip()
+                    buisnessCorrespond_name = columns[1].text.strip()
                     mobile_no = columns[2].text.strip()
                     pincode = columns[3].text.strip()
                     bank_name = columns[4].text.strip()
 
                     href = columns[1].find('a')['href'] if columns[1].find('a') else None
 
-                    writer.writerow([bc_name, mobile_no, pincode, bank_name])
+                    writer.writerow([buisnessCorrespond_name, mobile_no, pincode, bank_name])
 
-                    print(f"{bc_name}, {mobile_no}, {pincode}, {bank_name}")
+                    print(f"{buisnessCorrespond_name}, {mobile_no}, {pincode}, {bank_name}")
 
         except Exception as e:
             print(f"Error occurred during data extraction: {str(e)}")
